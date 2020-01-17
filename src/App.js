@@ -16,12 +16,19 @@ class App extends React.Component {
     };
   }
 
+  unsubscribeFromAuth = null;
+
   componentDidMount() {
     // This allows us to subscribe to firebase so we can get notification throughout our app if a user has signed in or signed out
-    auth.onAuthStateChanged(user => {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
       this.setState({ currentUser: user });
     });
   }
+
+  componentWillUnmount = () => {
+    this.unsubscribeFromAuth();
+  };
+  
 
   render() {
     return (
