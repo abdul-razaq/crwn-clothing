@@ -6,7 +6,7 @@ import HomePage from './pages/homepage/homepage';
 import ShopPage from './pages/shop/shop';
 import Header from './components/header/header';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up';
-import { auth } from './firebase/firebase.utils';
+import { auth } from './firebase/firebase';
 
 class App extends React.Component {
   constructor() {
@@ -19,7 +19,7 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    // This allows us to subscribe to firebase so we can get notification throughout our app if a user has signed in or signed out
+    // This allows us to subscribe to firebase so we can get notification throughout our app about our current user state if the user has signed in or signed out.
     this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
       this.setState({ currentUser: user });
     });
@@ -33,7 +33,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header currentUser={this.state.currentUser} />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/shop" component={ShopPage} />
