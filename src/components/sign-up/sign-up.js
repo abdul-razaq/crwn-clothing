@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   email: '',
   password: '',
   confirmPassword: '',
+  error: '',
 };
 
 class SignUp extends React.Component {
@@ -35,7 +36,7 @@ class SignUp extends React.Component {
       // clear our our form
       this.setState({ ...INITIAL_STATE });
     } catch (error) {
-      console.log(error);
+      this.setState({ error: error.message });
     }
   };
 
@@ -45,7 +46,7 @@ class SignUp extends React.Component {
   };
 
   render() {
-    const { displayName, email, password, confirmPassword } = this.state;
+    const { displayName, email, password, confirmPassword, error } = this.state;
 
     return (
       <div className="sign-up">
@@ -86,6 +87,7 @@ class SignUp extends React.Component {
           />
           <CustomButton type="submit">Sign Up</CustomButton>
         </form>
+        {error && <p className="error">{error}</p>}
       </div>
     );
   }
