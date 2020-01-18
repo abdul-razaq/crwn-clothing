@@ -5,16 +5,18 @@ import CustomButton from '../custom-button/custom-button';
 import { auth, createUserProfileDocument } from '../../firebase/firebase';
 import './sign-up.scss';
 
+const INITIAL_STATE = {
+  displayName: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+};
+
 class SignUp extends React.Component {
   constructor() {
     super();
 
-    this.state = {
-      displayName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    };
+    this.state = { ...INITIAL_STATE };
   }
 
   handleSubmit = async event => {
@@ -29,10 +31,17 @@ class SignUp extends React.Component {
         email,
         confirmPassword
       );
-      createUserProfileDocument(user, { displayName });
+      await createUserProfileDocument(user, { displayName });
+      // clear our our form
+      this.setState({ ...INITIAL_STATE });
     } catch (error) {
       console.log(error);
     }
+  };
+
+  handleChange = event => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
   };
 
   render() {
