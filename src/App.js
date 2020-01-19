@@ -11,9 +11,6 @@ import { auth, createUserProfileDocument } from './firebase/firebase';
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {
-      currentUser: null,
-    };
   }
 
   unsubscribeFromAuth = null;

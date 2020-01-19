@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { auth } from '../../firebase/firebase';
 
@@ -29,4 +30,4 @@ const Header = ({ currentUser }) => (
   </div>
 );
 
-export default Header;
+export default connect(Header);
