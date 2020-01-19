@@ -24,10 +24,16 @@ const Header = ({ currentUser }) => (
           SIGN OUT
         </div>
       ) : (
-        <Link className="option" to="/signin">SIGN IN</Link>
+        <Link className="option" to="/signin">
+          SIGN IN
+        </Link>
       )}
     </div>
   </div>
 );
 
-export default connect(Header);
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser
+});
+
+export default connect(mapStateToProps)(Header);
