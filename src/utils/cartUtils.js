@@ -1,4 +1,4 @@
-export const addItemToCart = (cartItems, cartItemToAdd) => {
+const addItemToCart = (cartItems, cartItemToAdd) => {
   // Check inside of the existing cart items if the cart already exists
   const existingCartItem = cartItems.find(
     cartItem => cartItem.id === cartItemToAdd.id
@@ -12,3 +12,5 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
   }
   return [...cartItems, { ...cartItemToAdd, quantity: 1 }];
 };
+
+export default addItemToCart;
