@@ -5,6 +5,7 @@ import {
   ADD_ITEM,
   REMOVE_ITEM,
   CLEAR_ITEM_FROM_CART,
+  UPDATE_COLLECTIONS,
 } from './types';
 
 export const setCurrentUser = user => {
@@ -29,4 +30,9 @@ export const removeItem = item => ({
 export const clearItemFromCart = item => ({
   type: CLEAR_ITEM_FROM_CART,
   payload: item,
+});
+
+export const updateCollections = collectionsMap => ({
+  type: UPDATE_COLLECTIONS,
+  payload: collectionsMap,
 });

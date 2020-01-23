@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import CollectionsOverview from '../../components/collections-overview/collections-overview';
 import CollectionPage from '../collection/collection';
 
-import { firestore } from '../../firebase/firebase';
+import { firestore, convertCollectionsSnapshotToMap } from '../../firebase/firebase';
 
 class ShopPage extends React.Component {
 
@@ -14,8 +14,8 @@ class ShopPage extends React.Component {
     // Grab the collections ref
     const collectionRef = firestore.collection('collections');
 
-    collectionRef.onSnapshot(async snapshot => {
-      
+    this.unsubscribeFromSnapShot = collectionRef.onSnapshot(async snapshot => {
+      const collectionsMap = convertCollectionsSnapshotToMap(snapshot)
     })
   }
   
