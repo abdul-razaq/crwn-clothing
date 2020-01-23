@@ -9,14 +9,19 @@ import Header from './components/header/header';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up';
 import CheckoutPage from './pages/checkout/checkout';
 
-import { auth, createUserProfileDocument } from './firebase/firebase';
+import {
+  auth,
+  createUserProfileDocument,
+  addCollectionAndDocuments,
+} from './firebase/firebase';
 import { setCurrentUser } from './store/actions';
+import { selectCollectionsForPreview } from './store/reducers/shop/shop_selector';
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser } = this.props;
+    const { setCurrentUser, collectionsArray } = this.props;
     // This allows us to subscribe to firebase so we can get notification throughout our app about our current user state if the user has signed in or signed out.
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       // get back the document Reference
@@ -31,6 +36,7 @@ class App extends React.Component {
         });
       } else {
         setCurrentUser(userAuth);
+        addCollectionAndDocuments('collections', collectionsArray);
       }
     });
   }
@@ -66,6 +72,7 @@ class App extends React.Component {
 
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
+  collectionsArray: selectCollectionsForPreview,
 });
 
 const mapDispatchToProps = dispatch => ({
