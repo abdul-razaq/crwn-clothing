@@ -39,7 +39,10 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-export const addCollectionAndDocuments = (collectionKey, objectsToAdd) => {
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
   const collectionRef = firestore.collection(collectionKey);
 
   const batch = firestore.batch();
@@ -47,6 +50,8 @@ export const addCollectionAndDocuments = (collectionKey, objectsToAdd) => {
     const newDocRef = collectionRef.doc();
     batch.set(newDocRef, obj);
   });
+
+  return await batch.commit();
 };
 
 firebase.initializeApp(config);
